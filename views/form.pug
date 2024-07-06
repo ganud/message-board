@@ -1,0 +1,10 @@
+extends layout 
+
+block content
+    h1="Add a message"
+    form(action="/new", method="post") 
+        label(for="author")="Author" 
+        input(type="text" name="author")
+        label(for="message")="Message" 
+        input(type="text" name="message")
+        button(type="submit")="Submit"

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= "Mini Messageboard"
+  h3= "Post a comment here!"
+  ul
+    each val in title
+      div.message
+        <p><strong>#{val.user}</strong> <em>#{val.added}</em></p>
+        
+        <p>#{val.text}</p>
+  form(action="/new") 
+    button(type="submit")="Add a message"
+

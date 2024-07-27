@@ -9,6 +9,15 @@ router.get("/", async (req, res, next) => {
   res.render("index", { messages: messages.rows, title: "Message Board" });
 });
 
+/* GET home page. */
+router.get("/messages/:id", async (req, res, next) => {
+  const message = await pool.query(
+    `SELECT * FROM messages WHERE id = ${req.params.id};`
+  );
+  console.log(message.rows);
+  res.render("message", { message: message.rows[0], title: "Message Board" });
+});
+
 router.get("/new", (req, res, next) => {
   res.render("form", { title: "Add a message" });
 });

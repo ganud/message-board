@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    div.message
+        <p><strong>#{message.username}</strong> <em>#{message.date}</em></p>
+
+        <p>#{message.value}</p>
+        a(href="/")
+            button Go back

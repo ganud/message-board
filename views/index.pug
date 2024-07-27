@@ -9,6 +9,8 @@ block content
         <p><strong>#{message.username}</strong> <em>#{message.date}</em></p>
         
         <p>#{message.value}</p>
+        a(href=`/messages/${message.id}`)
+          button Open
   form(action="/new") 
     button(type="submit")="Add a message"
 

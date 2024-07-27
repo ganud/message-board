@@ -1,34 +1,28 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date().toLocaleString("en-US", { timeZoneName: "short" }),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date().toLocaleString("en-US", { timeZoneName: "short" }),
-  },
-];
+const pool = require("../db/pool");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: messages });
+router.get("/", async (req, res, next) => {
+  const messages = await pool.query("SELECT * FROM messages;");
+  res.render("index", { messages: messages.rows, title: "Message Board" });
 });
 
-router.get("/new", function (req, res, next) {
-  res.render("form", { title: "Express" });
+router.get("/new", (req, res, next) => {
+  res.render("form", { title: "Add a message" });
 });
 
-router.post("/new", function (req, res, next) {
-  messages.push({
-    text: req.body.message,
-    user: req.body.author,
-    added: new Date().toLocaleString("en-US", { timeZoneName: "short" }),
-  });
+router.post("/new", async (req, res, next) => {
+  await pool.query(
+    `INSERT INTO messages (username, value, date) VALUES ('${
+      req.body.author
+    }', '${req.body.message}', '${new Date().toLocaleString("en-US", {
+      timeZoneName: "short",
+      timeZone: "UTC",
+    })}');`
+  );
+
   res.redirect("/");
 });
 

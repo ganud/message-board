@@ -4,11 +4,11 @@ block content
   h1= "Mini Messageboard"
   h3= "Post a comment here!"
   ul
-    each val in title
+    each message in messages
       div.message
-        <p><strong>#{val.user}</strong> <em>#{val.added}</em></p>
+        <p><strong>#{message.username}</strong> <em>#{message.date}</em></p>
         
-        <p>#{val.text}</p>
+        <p>#{message.value}</p>
   form(action="/new") 
     button(type="submit")="Add a message"
 
